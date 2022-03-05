@@ -19,6 +19,10 @@
 		9314876427D3C9B70012AC2C /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876227D3C9B70012AC2C /* URLBuilder.swift */; };
 		9314876627D3CF660012AC2C /* Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876527D3CF660012AC2C /* Extenstions.swift */; };
 		9314876727D3CF660012AC2C /* Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876527D3CF660012AC2C /* Extenstions.swift */; };
+		9314876927D3D4A00012AC2C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876827D3D4A00012AC2C /* Models.swift */; };
+		9314876A27D3D4A00012AC2C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876827D3D4A00012AC2C /* Models.swift */; };
+		9314876C27D3D8740012AC2C /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876B27D3D8740012AC2C /* Parser.swift */; };
+		9314876D27D3D8740012AC2C /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9314876B27D3D8740012AC2C /* Parser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +35,8 @@
 		9314875F27D15ACB0012AC2C /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		9314876227D3C9B70012AC2C /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		9314876527D3CF660012AC2C /* Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extenstions.swift; sourceTree = "<group>"; };
+		9314876827D3D4A00012AC2C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		9314876B27D3D8740012AC2C /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,12 +69,11 @@
 		9314872627D151C60012AC2C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				9314872827D151C60012AC2C /* ContentView.swift */,
-				9314875F27D15ACB0012AC2C /* ContentViewModel.swift */,
 				9314876527D3CF660012AC2C /* Extenstions.swift */,
 				9314872727D151C60012AC2C /* StackOverflowChallengeApp.swift */,
-				9314876227D3C9B70012AC2C /* URLBuilder.swift */,
 				9314872927D151C70012AC2C /* Assets.xcassets */,
+				9314877027D3D9150012AC2C /* Model */,
+				9314876E27D3D8F30012AC2C /* View */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -88,6 +93,33 @@
 				9314873627D151C70012AC2C /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		9314876E27D3D8F30012AC2C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9314876F27D3D9050012AC2C /* Model */,
+				9314872827D151C60012AC2C /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9314876F27D3D9050012AC2C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9314875F27D15ACB0012AC2C /* ContentViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9314877027D3D9150012AC2C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9314876827D3D4A00012AC2C /* Models.swift */,
+				9314876B27D3D8740012AC2C /* Parser.swift */,
+				9314876227D3C9B70012AC2C /* URLBuilder.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,8 +223,10 @@
 				9314876027D15ACB0012AC2C /* ContentViewModel.swift in Sources */,
 				9314876627D3CF660012AC2C /* Extenstions.swift in Sources */,
 				9314876327D3C9B70012AC2C /* URLBuilder.swift in Sources */,
+				9314876927D3D4A00012AC2C /* Models.swift in Sources */,
 				9314873927D151C70012AC2C /* ContentView.swift in Sources */,
 				9314873727D151C70012AC2C /* StackOverflowChallengeApp.swift in Sources */,
+				9314876C27D3D8740012AC2C /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +237,10 @@
 				9314876127D15ACB0012AC2C /* ContentViewModel.swift in Sources */,
 				9314876727D3CF660012AC2C /* Extenstions.swift in Sources */,
 				9314876427D3C9B70012AC2C /* URLBuilder.swift in Sources */,
+				9314876A27D3D4A00012AC2C /* Models.swift in Sources */,
 				9314873A27D151C70012AC2C /* ContentView.swift in Sources */,
 				9314873827D151C70012AC2C /* StackOverflowChallengeApp.swift in Sources */,
+				9314876D27D3D8740012AC2C /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
