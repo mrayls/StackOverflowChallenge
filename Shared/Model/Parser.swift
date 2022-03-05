@@ -7,19 +7,21 @@
 
 import Foundation
 
-class Parser: NSObject {
-    static func parseQuestions(witData data: Data) -> [Item] {
-        let items: [Item]
-        do {
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = .convertFromSnakeCase
-            let request = try decoder.decode(Request.self, from: data)
-            items = request.items
-        } catch let error {
-            print(String(describing: error))
-            items = []
+class Parser {
+    static func parseRequest(witData data: Data?) -> SORequest? {
+        
+        if let data = data {
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let request = try decoder.decode(SORequest.self, from: data)
+                return request
+            } catch let error {
+                print(String(describing: error))
+            }
         }
         
-        return items
+        return nil
     }
 }

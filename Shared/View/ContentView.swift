@@ -11,8 +11,12 @@ struct ContentView: View {
     @ObservedObject var viewModel: ContentViewModel
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        List {
+            ForEach(viewModel.items, id: \.questionId) { item in
+                Text(item.title)
+            }
+        }
         
         Button("Make Request") {
             viewModel.makeRequest()

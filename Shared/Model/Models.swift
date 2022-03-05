@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Request: Decodable {
+struct SORequest: Decodable {
     let items: [Item]
     let hasMore: Bool?
     let quotaMax: Int?
