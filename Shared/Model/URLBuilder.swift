@@ -15,7 +15,7 @@ struct URLBuilder {
     static func getURLString(params: [String: Any] = [:]) -> URL? {
         
         let toDate = Date()
-        guard let fromDate = toDate.previousDayDate() else {
+        guard let fromDate = toDate.previousMonthDate() else {
             print("Couldn't get previous month date, returning nil")
             return nil
         }
@@ -23,6 +23,7 @@ struct URLBuilder {
         var components = URLComponents(string: baseURL+questionsEndpoint)
         components?.queryItems = [
             URLQueryItem(name: "site", value: "stackoverflow"),
+            URLQueryItem(name: "pagesize", value: "100"),
             URLQueryItem(name: "fromdate", value: fromDate.toEpochString()),
             URLQueryItem(name: "todate", value: toDate.toEpochString())
         ]

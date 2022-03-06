@@ -12,14 +12,39 @@ struct ContentView: View {
     
     var body: some View {
         
-        List {
-            ForEach(viewModel.items, id: \.questionId) { item in
-                Text(item.title)
+        NavigationView {
+            
+            VStack {
+                
+                List {
+                    Section(header: Text("Recently Guessed")) {
+                        // TODO: Finish populating this section with recently guessed items
+                    }
+                    
+                    Section(header: Text("From API")) {
+                        ForEach(viewModel.items, id: \.questionId) { item in
+                            NavigationLink(destination: ItemView(item: item)) {
+                                HStack {
+                                    ItemRow(item: item)
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                Button("Make Request") {
+                    viewModel.makeRequest()
+                }
+                .padding([.top, .bottom], 20)
+                
             }
-        }
-        
-        Button("Make Request") {
-            viewModel.makeRequest()
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .center
+            )
         }
     }
 }
