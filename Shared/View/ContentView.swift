@@ -39,7 +39,9 @@ struct ContentView: View {
                 
             }
             .navigationTitle("Question List")
+            #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
+            #endif
             .frame(
                 minWidth: 0,
                 maxWidth: .infinity,
