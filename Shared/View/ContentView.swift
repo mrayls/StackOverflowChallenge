@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ContentViewModel
+    @State var mockRequest = true
     
     var body: some View {
         
@@ -23,7 +24,7 @@ struct ContentView: View {
                     
                     Section(header: Text("From API")) {
                         ForEach(viewModel.items, id: \.questionId) { item in
-                            NavigationLink(destination: ItemView(item: item)) {
+                            NavigationLink(destination: ItemDetailView(viewModel: ItemDetailViewModel(), item: item)) {
                                 HStack {
                                     ItemRow(item: item)
                                 }
@@ -33,11 +34,13 @@ struct ContentView: View {
                 }
                 
                 Button("Make Request") {
-                    viewModel.makeRequest()
+                    mockRequest ? viewModel.makeMockRequest() : viewModel.makeRequest()
                 }
-                .padding([.top, .bottom], 20)
+                .padding([.top, .bottom], 10)
                 
             }
+            .navigationTitle("Question List")
+            .navigationBarTitleDisplayMode(.inline)
             .frame(
                 minWidth: 0,
                 maxWidth: .infinity,
@@ -46,6 +49,7 @@ struct ContentView: View {
                 alignment: .center
             )
         }
+        .onAppear { viewModel.makeMockRequest() }
     }
 }
 

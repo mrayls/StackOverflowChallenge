@@ -9,13 +9,13 @@ import Foundation
 
 struct SORequest: Decodable {
     let items: [Item]
-    let hasMore: Bool?
-    let quotaMax: Int?
-    let quotaRemaining: Int?
+    let hasMore: Bool
+    let quotaMax: Int
+    let quotaRemaining: Int
 }
 
 struct Item: Decodable {
-    let tags: [String]?
+    let tags: [String]
     let isAnswered: Bool
     let viewCount: Int?
     let answerCount: Int
@@ -24,7 +24,18 @@ struct Item: Decodable {
     let creationDate: Int?
     let questionId: Int
     let title: String
+    let bodyMarkdown: String
     let link: String
+    let owner: Owner
+    let answers: [Answer]?
+}
+
+struct Answer: Decodable {
+    let title: String
+    let bodyMarkdown: String
+    let score: Int
+    let isAccepted: Bool
+    let answerId: Int
     let owner: Owner
 }
 
@@ -33,7 +44,5 @@ struct Owner: Decodable {
     let reputation: Int
     let userId: Int
     let userType: String
-    let profileImage: String
     let displayName: String
-    let link: String
 }

@@ -7,11 +7,10 @@
 
 import Foundation
 
-class Parser {
+struct Parser {
     static func parseRequest(witData data: Data?) -> SORequest? {
-        
+
         if let data = data {
-            
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase

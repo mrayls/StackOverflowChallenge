@@ -17,7 +17,7 @@ struct ItemRow: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Created by: \(item.owner.displayName)")
+            Text("Asked by: \(item.owner.displayName)")
                 .padding([.bottom], 5)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -31,5 +31,4 @@ struct ItemRow: View {
             )
     }
 }
-
 
