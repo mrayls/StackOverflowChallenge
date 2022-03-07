@@ -20,7 +20,7 @@ class ContentViewModel: ObservableObject {
                 
                 if let parsedRequest = Parser.parseRequest(witData: data) {
                     DispatchQueue.main.async {
-                        self.items.append(contentsOf: parsedRequest.items.filter({ $0.isAnswered && $0.answerCount > 1 }))
+                        self.items.append(contentsOf: parsedRequest.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }))
                     }
                 }
             } catch let error {
@@ -50,8 +50,7 @@ class ContentViewModel: ObservableObject {
             
             if let parsedRequest = Parser.parseRequest(witData: data) {
                 DispatchQueue.main.async {
-                    //                    self.items.append(contentsOf: parsedRequest.items)
-                    self.items.append(contentsOf: parsedRequest.items.filter({ $0.isAnswered && $0.answerCount > 1 }))
+                    self.items.append(contentsOf: parsedRequest.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }))
                 }
             }
         })
