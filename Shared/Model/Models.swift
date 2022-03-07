@@ -17,6 +17,7 @@ struct SORequest: Decodable {
 struct Item: Decodable {
     let tags: [String]
     let isAnswered: Bool
+    let acceptedAnswerId: Int?
     let viewCount: Int?
     let answerCount: Int
     let score: Int?
