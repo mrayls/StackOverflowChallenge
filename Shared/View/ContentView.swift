@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ContentViewModel
-    @State var mockRequest = true
     
     var body: some View {
         
@@ -34,7 +33,7 @@ struct ContentView: View {
                 }
                 
                 Button("Make Request") {
-                    mockRequest ? viewModel.makeMockRequest() : viewModel.makeRequest()
+                    viewModel.makeRequest()
                 }
                 .padding([.top, .bottom], 10)
                 

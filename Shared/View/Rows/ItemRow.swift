@@ -17,9 +17,19 @@ struct ItemRow: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Asked by: \(item.owner.displayName)")
-                .padding([.bottom], 5)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            HStack {
+                Text("Asked by: ")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                Text(item.owner.displayName)
+                    .font(.footnote)
+                    .padding([.leading, .trailing, .top, .bottom], 2)
+                    .foregroundColor(.white)
+                    .background(.black).opacity(0.8)
+                    .cornerRadius(5)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
         }
         .padding(.leading, 5)
         .frame(

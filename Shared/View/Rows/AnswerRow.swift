@@ -12,16 +12,29 @@ struct AnswerRow: View {
     
     var body: some View {
         HStack {
-            Text(answer.bodyMarkdown)
+            VStack {
+                HStack {
+                    Text(answer.owner.displayName)
+                        .font(.subheadline)
+                        .padding([.leading, .trailing, .top, .bottom], 5)
+                        .foregroundColor(.white)
+                        .background(.black).opacity(0.8)
+                        .cornerRadius(5)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                
+                Text(answer.body.htmlToString() ?? "Error: couldn't parse HTML")
+            }
+            
         }
         .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .leading
-            )
-        .background(Color.gray.opacity(0.1))
+            minWidth: 0,
+            maxWidth: .infinity,
+            minHeight: 0,
+            maxHeight: .infinity,
+            alignment: .leading
+        )
         .cornerRadius(5)
     }
 }

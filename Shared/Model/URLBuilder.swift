@@ -11,7 +11,7 @@ struct URLBuilder {
     
     static let baseURL = "https://api.stackexchange.com/2.3"
     static let questionsEndpoint = "/questions"
-    static let markdownFilter = "!-lKb4mISst(do91S18q25Vregn1h__HnTtJjHyQMrG)g0iEF7c6zEI"
+    static let markdownFilter = "!D5qB_bCl3EcR.u-Jj_bB4092.EPad1rHb0EARtXbejXPVtRwz9e"
     
     static func getURLString(params: [String: Any] = [:]) -> URL? {
         

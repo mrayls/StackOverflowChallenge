@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ItemDetailView: View {
     @ObservedObject var viewModel: ItemDetailViewModel
-    @State private var markdownString: AttributedString = ""
     let item: Item
     
     var body: some View {
@@ -24,15 +23,22 @@ struct ItemDetailView: View {
                     
                     Divider().background(Color.mint)
                     
-                    Text(markdownString)
+                    Text(item.body.htmlToString() ?? "Error: couldn't parse HTML")
                         .font(.body)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("Asked by: \(item.owner.displayName)")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding([.top, .bottom], 10)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    HStack {
+                        Text("Asked by: ")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                        Text(item.owner.displayName)
+                            .font(.subheadline)
+                            .padding([.leading, .trailing, .top, .bottom], 5)
+                            .foregroundColor(.white)
+                            .background(.black).opacity(0.8)
+                            .cornerRadius(5)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Divider().background(Color.mint)
                     
@@ -49,8 +55,6 @@ struct ItemDetailView: View {
                 }
             }
             .padding([.leading, .trailing, .top], 10)
-        }.onAppear {
-            markdownString = viewModel.formatMarkdown(markdown: item.bodyMarkdown) ?? ""
         }
     }
 }

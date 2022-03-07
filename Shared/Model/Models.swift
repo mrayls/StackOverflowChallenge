@@ -24,7 +24,7 @@ struct Item: Decodable {
     let creationDate: Int?
     let questionId: Int
     let title: String
-    let bodyMarkdown: String
+    let body: String
     let link: String
     let owner: Owner
     let answers: [Answer]?
@@ -32,7 +32,7 @@ struct Item: Decodable {
 
 struct Answer: Decodable {
     let title: String
-    let bodyMarkdown: String
+    let body: String
     let score: Int
     let isAccepted: Bool
     let answerId: Int
