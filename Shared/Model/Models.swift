@@ -47,3 +47,7 @@ struct Owner: Decodable {
     let userType: String
     let displayName: String
 }
+
+struct Constants {
+    static let guessedIdsKey = "guessedIds"
+}

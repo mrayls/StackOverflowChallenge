@@ -9,32 +9,25 @@ import SwiftUI
 
 struct AnswerRow: View {
     let answer: Answer
+    let backgroundColor: Color
     
     var body: some View {
-        HStack {
-            VStack {
-                HStack {
-                    Text(answer.owner.displayName)
-                        .font(.subheadline)
-                        .padding([.leading, .trailing, .top, .bottom], 5)
-                        .foregroundColor(.white)
-                        .background(.black).opacity(0.8)
-                        .cornerRadius(5)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                
-                Text(answer.body.htmlToString() ?? "Error: couldn't parse HTML")
-            }
+        VStack {
             
+            Text(answer.owner.displayName)
+                .font(.subheadline)
+                .padding([.leading, .trailing, .top, .bottom], 5)
+                .foregroundColor(.white)
+                .background(.black).opacity(0.8)
+                .cornerRadius(5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(answer.body.formatHTMLString())
+                .padding([.leading, .trailing], 5)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity,
-            alignment: .leading
-        )
+        .background(backgroundColor)
+        .padding([.leading, .trailing, .top, .bottom], 5)
         .cornerRadius(5)
     }
 }

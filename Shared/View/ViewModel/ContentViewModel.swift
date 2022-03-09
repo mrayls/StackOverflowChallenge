@@ -9,22 +9,27 @@ import Foundation
 
 class ContentViewModel: ObservableObject {
     @Published var soRequest: SORequest?
-    @Published var items: [Item] = []
+    @Published var recentlyGuessedQuestions: [Item] = []
+    @Published var items: [Item] = [] {
+        didSet {
+            populateRecentlyGuessed()
+        }
+    }
+    
+    func populateRecentlyGuessed() {
+        recentlyGuessedQuestions.removeAll()
+        
+        if let guessedIds = UserDefaults.standard.value(forKey: Constants.guessedIdsKey) as? [Int] {
+            recentlyGuessedQuestions.append(contentsOf: items.filter({ guessedIds.contains($0.questionId) }))
+        }
+    }
     
     func makeMockRequest() {
         self.items.removeAll()
         
-        if let path = Bundle.main.path(forResource: "test", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                
-                if let parsedRequest = Parser.parseRequest(witData: data) {
-                    DispatchQueue.main.async {
-                        self.items.append(contentsOf: parsedRequest.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }))
-                    }
-                }
-            } catch let error {
-                print(String(describing: error))
+        if let parsedRequest = NetworkManager.makeMockedRequest() {
+            DispatchQueue.main.async {
+                self.items.append(contentsOf: parsedRequest.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }))
             }
         }
     }
@@ -32,29 +37,10 @@ class ContentViewModel: ObservableObject {
     func makeRequest() {
         self.items.removeAll()
         
-        guard let url = URLBuilder.getURLString() else {
-            return print("Couldn't get URL")
-        }
-        
-        var urlRequest = URLRequest(url: url )
-        urlRequest.httpMethod = "GET"
-        
-        print("*** Starting API call with url: \(url)")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: urlRequest, completionHandler: { [weak self] data, _, error -> Void in
-            
-            guard let self = self else { return }
-            
-            guard error == nil else { return print("Error:\n\(error.debugDescription)")}
-            
-            if let parsedRequest = Parser.parseRequest(witData: data) {
-                DispatchQueue.main.async {
-                    self.items.append(contentsOf: parsedRequest.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }))
-                }
+        NetworkManager.makeGetRequest { parsedRequest in
+            DispatchQueue.main.async {
+                self.items.append(contentsOf: parsedRequest?.items.filter({ $0.acceptedAnswerId != nil && $0.answerCount > 1 }) ?? [])
             }
-        })
-        
-        task.resume()
+        }
     }
 }

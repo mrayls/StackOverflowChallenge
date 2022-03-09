@@ -7,24 +7,6 @@
 
 import Foundation
 
-extension Data {
-    func getJSONDict() -> [String: Any]? {
-        
-        do {
-            let json = try JSONSerialization.jsonObject(with: self, options: .allowFragments)
-            if JSONSerialization.isValidJSONObject(json) {
-                return json as? [String: Any]
-            }
-            
-            return nil
-        } catch let error {
-            print(error.localizedDescription)
-            
-            return nil
-        }
-    }
-}
-
 extension Date {
     func previousMonthDate() -> Date? {
         return Calendar.current.date(byAdding: .month, value: -1, to: self)
@@ -50,10 +32,18 @@ extension Int {
 }
 
 extension String {
-    func htmlToString() -> String? {
+    func formatHTMLString() -> String {
+        if let data = self.data(using: String.Encoding.unicode) {
+            do {
+                return try NSAttributedString(
+                    data: data,
+                    options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html],
+                    documentAttributes: nil).string
+            } catch let error {
+                print(String(describing: error))
+            }
+        }
         
-        return  try? NSAttributedString(data: self.data(using: .utf8)!,
-                                        options: [.documentType: NSAttributedString.DocumentType.html],
-                                        documentAttributes: nil).string
+        return "Error: couldn't parse HTML"
     }
 }

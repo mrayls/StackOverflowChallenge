@@ -18,7 +18,15 @@ struct ContentView: View {
                 
                 List {
                     Section(header: Text("Recently Guessed")) {
-                        // TODO: Finish populating this section with recently guessed items
+                        ForEach(viewModel.recentlyGuessedQuestions, id: \.questionId) { item in
+                            NavigationLink(destination: ItemDetailView(viewModel: ItemDetailViewModel(), item: item)) {
+                                HStack {
+                                    ItemRow(item: item)
+                                }
+                            }
+                        }
+                    }.onAppear {
+                        viewModel.populateRecentlyGuessed()
                     }
                     
                     Section(header: Text("From API")) {

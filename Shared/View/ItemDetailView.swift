@@ -12,18 +12,26 @@ struct ItemDetailView: View {
     @ObservedObject var viewModel: ItemDetailViewModel
     let item: Item
     
+    @State var selectedId: Int = -1
+    
     var body: some View {
+        
+        if viewModel.showResults {
+            ResultView(gotRightAnswer: viewModel.gotRightAnswer)
+        }
+        
         ScrollView {
             HStack {
+                
                 VStack {
                     
                     Text(item.title)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Divider().background(Color.mint)
+                    Divider().background(.mint)
                     
-                    Text(item.body.htmlToString() ?? "Error: couldn't parse HTML")
+                    Text(item.body.formatHTMLString())
                         .font(.body)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -40,7 +48,7 @@ struct ItemDetailView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Divider().background(Color.mint)
+                    Divider().background(.mint)
                     
                     Text("Answers")
                         .font(.title)
@@ -49,12 +57,29 @@ struct ItemDetailView: View {
                     
                     if let answers = item.answers {
                         ForEach(answers, id: \.answerId) { answer in
-                            AnswerRow(answer: answer)
+                            
+                            AnswerRow(answer: answer, backgroundColor: viewModel.getRowBackgroundColor(rowId: answer.answerId, correctAnswer: item.acceptedAnswerId ?? -999))
+                                .onTapGesture {
+                                    viewModel.selectingAnswer(answer: answer.answerId)
+                                }
+                                .alert("Alert", isPresented: $viewModel.showAlert, actions: {
+                                    if !viewModel.guessed {
+                                        Button("Confirm", role: nil) {
+                                            viewModel.makeGuess(correctAnswer: item.acceptedAnswerId ?? -999)
+                                            viewModel.saveGuessedQuestion(questionId: item.questionId)
+                                        }
+                                    }
+                                    
+                                    Button("Cancel", role: .cancel, action: {})
+                                    
+                                }, message: {
+                                    viewModel.guessed ? Text("Whoa there, you already guessed on this question") : Text("Do you want to select this answer for your guess?")
+                                })
                         }
                     }
                 }
+                .padding([.leading, .trailing, .top], 10)
             }
-            .padding([.leading, .trailing, .top], 10)
         }
     }
 }
